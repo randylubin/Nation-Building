@@ -1,0 +1,20 @@
+[{
+    "name": "Fjordish",
+    "population": 20,
+    "growthRate": 2,
+    "military": 0,
+    "technology": 0,
+    "disposition": 5,
+    "resources": 0,
+    "relationships": []
+},
+{
+    "name": "Dinarian",
+    "population": 20,
+    "growthRate": 2,
+    "military": 0,
+    "technology": 0,
+    "disposition": 5,
+    "resources": 0,
+    "relationships": []
+}]

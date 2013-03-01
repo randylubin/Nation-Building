@@ -1,0 +1,11 @@
+{
+  "name": "nation_building",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "~3.0.0rc4"
+  },
+  "scripts": {
+    "start": "npm install && node server.js"
+  }
+}
