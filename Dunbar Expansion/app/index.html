@@ -1,0 +1,59 @@
+<!doctype html>
+
+<!--[if lt IE 7]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+
+    <title>Nation Building</title>
+    <meta name="author" content="Randy Lubin <randylubin@gmail.com>">
+
+    <link rel="stylesheet" href="style/screen.css" media="screen, projection">
+    <link rel="stylesheet" href="style/fancypants.css" media="screen, projection">
+
+
+    <script data-main="scripts/main" src="scripts/vendor/requirejs/require.js"></script>
+
+    <!-- reconcile this with bower install -->
+    <script src="js/vendor/modernizr-1.6.min.js"></script>
+    <script src="js/vendor/rainbowvis.js"></script>
+
+
+    <script type="text/template" id="library-template">
+      <h1>Current Bands</h1>
+      <ul class='stats'></ul>
+      <ul class='bands'></ul>
+      <button class="play"><img src="/images/control_play.png" /></button>
+    </script>
+
+    <script type="text/template" id="stats-template">
+      <li>Turn: <span class="stats-turn"><%= turn %></span></li>
+    </script>
+
+    <script type="text/template" id="band-template">
+      <button class="queue add"><img src="/images/add.png" /></button>
+      <span class="band-name"><%= name %></span>
+      <ol class="stats">
+        <li>Population <%= population %></li>
+        <li>Growth Rate <%= growthRate %></li>
+        <li>Military <%= military %></li>
+      </ol>
+    </script>
+
+    <script type="text/template" id="map-template">
+      
+    </script>
+
+  </head>
+
+  <body>
+    <div id="container">
+    </div>
+    <div id='canvas'>
+        <canvas id="canvasId" width="500" height="300"></canvas>
+    </div>
+  </body>
+</html>

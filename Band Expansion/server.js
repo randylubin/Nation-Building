@@ -10,7 +10,7 @@ app.configure(function () {
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.static(__dirname + '/app'));
 });
 
 app.configure('development', function () {
@@ -18,22 +18,22 @@ app.configure('development', function () {
     dumpExceptions: true,
     showStack: true
   }));
-  app.set('port', 8787);
+  app.set('port', 8788);
 });
 
 // Routes
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/public/index.html');
+  res.sendfile(__dirname + '/app/index.html');
 });
 
 /*
 app.get('/blank', function (req, res) {
-  res.sendfile(__dirname + '/public/index.html');
+  res.sendfile(__dirname + '/app/index.html');
 })
 */
 app.get('/bands', function (req, res) {
   res.contentType('application/json');
-  res.sendfile(__dirname + '/public/bands.json');
+  res.sendfile(__dirname + '/app/bands.json');
 });
 
 
