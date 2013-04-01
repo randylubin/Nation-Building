@@ -2,14 +2,18 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    'easel',
     'collections/territories',
     'collections/bands',
     'models/gameStats',
     'models/territory',
     'models/band',
+    'models/playerBand',
     'views/libraryView',
-    'views/mapView'
-], function ($, _, Backbone, Territories, Bands, GameStats, Territory, Band, LibraryView, MapView)
+    'views/mapView',
+    'models/gameLoop',
+    'views/playerMessageView'
+], function ($, _, Backbone, Easel, Territories, Bands, GameStats, Territory, Band, PlayerBand, LibraryView, MapView, GameLoop, PlayerMessageView)
 {
     var Router = Backbone.Router.extend({
         routes: {
@@ -24,13 +28,17 @@ define([
             this.mapView = new MapView({
                 collection: window.territories
             });
+            this.playerMessageView = new PlayerMessageView({
+                model: window.message
+            });
         },
 
         home: function(){
             var $container = $('#container');
             $container.empty();
+            $container.append(this.playerMessageView.render().el);
             $container.append(this.libraryView.render().el);
-            $container.append(this.mapView.render());
+            this.mapView.render();
         },
 
         blank: function(){
@@ -38,17 +46,12 @@ define([
             $('#container').text('blank');
         },
 
-        advanceTurns: function(turns){
+        advanceTurns: function(turnTarget){
             setTimeout( function(){
-                if(turns>0){
-                    //console.log('remaining:', turns);
-                    //library.increasePop();
-                    territories.growOnce();
-                    territories.expand();
-                    gameStats.increaseTurnCounter();
-                    turns -= 1;
-                    window.App.advanceTurns(turns);
-
+                if(turnTarget /*> gameStats.get('turn')*/){
+                    gameLoop.nextPhase();
+                    turnTarget--;
+                    window.App.advanceTurns(turnTarget);
                 } else {
                     //console.log('finished');
                 }

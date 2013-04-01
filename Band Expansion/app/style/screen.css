@@ -7,6 +7,12 @@ body {
 	padding: 0;
 }
 
+#message {
+    position:absolute;
+    left: 100px;
+    top: 0px;
+}
+
 #canvas {
     position:absolute;
     left: 70px;

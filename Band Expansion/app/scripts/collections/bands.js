@@ -11,19 +11,33 @@ define([
 		model: Band,
 		url: '/bands',
 
+		initialize: function(){
+			_.bindAll(this, 'increasePop', 'decideNextMove','move');
+		},
+
 		increasePop: function(){
 
-			var bands = this.models;
-			
-			_.map(bands, function(band){
+			_.map(this.models, function(band){
 				band.growOnce();
-			})
-			
-			this.trigger('change:stats')
-		}	
+			});
+
+			this.trigger('change:stats');
+		},
+
+		decideNextMove: function(){
+			_.map(this.models, function(band){
+				band.decideNextMove();
+			});
+		},
+
+		move: function(){
+			_.map(this.models, function(band){
+				band.move();
+			});
+		}
 
 	});
 
-	return window.Bands
+	return window.Bands;
 
-})
+});

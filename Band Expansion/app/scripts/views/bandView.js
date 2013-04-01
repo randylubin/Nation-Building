@@ -18,14 +18,14 @@ define([
 			this.model.bind('change:population', this.render);
 			this.collection.bind('change:stats', this.render);
 			this.collection.bind('reset', this.render);
-			this.template = _.template($('#band-template').html())
+			this.template = _.template($('#band-template').html());
 		},
 
 		render: function() {
 			var renderedContent = this.template(this.model.toJSON());
 			$(this.el).html(renderedContent);
 
-			return this
+			return this;
 		},
 
 		increase: function(){
@@ -36,6 +36,6 @@ define([
 
 	});
 
-	return window.BandView
+	return window.BandView;
 
 });

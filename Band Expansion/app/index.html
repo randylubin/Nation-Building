@@ -21,6 +21,9 @@
     <script src="js/vendor/modernizr-1.6.min.js"></script>
     <script src="js/vendor/rainbowvis.js"></script>
 
+    <script type="text/template" id="player-message">
+      <h1 id="message"> <%= message %></h1>
+    </script>
 
     <script type="text/template" id="library-template">
       <h1>Current Bands</h1>
@@ -31,6 +34,7 @@
 
     <script type="text/template" id="stats-template">
       <li>Turn: <span class="stats-turn"><%= turn %></span></li>
+      <li>Phase: <span class="stats-phase"><%= phase %></span></li>
     </script>
 
     <script type="text/template" id="band-template">

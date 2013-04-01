@@ -6,32 +6,33 @@ define([
 	'views/libraryBandView'
 ], function($, _, Backbone, LibraryStatsView, LibraryBandView){
 
-		
-
 	window.LibraryView = Backbone.View.extend({
 		tagName: 'section',
 		className: 'library',
+		events: {
+			'click .play': 'advancePhase'
+		},
 
 		initialize: function(){
-			_.bindAll(this, 'render');
+			_.bindAll(this, 'render', 'advancePhase');
 			this.template = _.template($('#library-template').html());
 			this.collection.bind('reset', this.render);
 			//this.collection.bind('change', this.render);
 
 		},
-		
+
 		render: function(){
 			var $stats,
 				$bands,
 				collection = this.collection;
 
 			$(this.el).html(this.template({}));
-			
+
 			$stats = this.$(".stats");
 			var view = new LibraryStatsView({
 				model: gameStats
 			});
-			$stats.append(view.render().el)
+			$stats.append(view.render().el);
 
 			$bands = this.$(".bands");
 			this.collection.each(function(band) {
@@ -39,14 +40,18 @@ define([
 					model: band,
 					collection: collection
 				});
-				$bands.append(view.render().el)
+				$bands.append(view.render().el);
 			});
 
 			return this;
-		}		
+		},
+
+		advancePhase: function(){
+			gameLoop.nextPhase(gameStats.get('phase'));
+		}
 
 	});
 
-	return window.LibraryView
-	
+	return window.LibraryView;
+
 });
