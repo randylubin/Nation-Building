@@ -90,8 +90,10 @@ define([
 				home.set('player', band.get('player'));
 				home.changePopulation(gameStats.get('initialPop'));
             });
-            window.moved = window.playerBand.get('territory');
-            window.playerMoveTarget = window.playerBand.get('territory');
+            if (gameStats.get('player')){
+	            window.moved = window.playerBand.get('territory');
+	            window.playerMoveTarget = window.playerBand.get('territory');
+	        }
             window.territories.trigger('change:map');
 		},
 
@@ -125,7 +127,7 @@ define([
 
 		updateCarryingCapacity: function(){
 			_.map(this.models, function(territory){
-				if (territory.get('land')) {territory.updateCarryingCapacity();}
+				if (territory.get('land')) {territory.growOnce();}
 			});
 		}
 	});

@@ -10,6 +10,7 @@ define([
 			turn: 0,
 			phase: 0,
 			ready: 0,
+			player: 1,
 			// Game Map
 			rows: 6,
 			columns: 8,
@@ -18,8 +19,10 @@ define([
 			// Population
 			popPerExp: 25,
 			minPopToExp: 150,
-			growthRate: 2.3,
+			
 			initialPop: 20,
+			//ecology
+			growthRate: 1.3,
 			maxWildCap: 30,
 			// Tile Colors
 			maxPopColor: 200.0,

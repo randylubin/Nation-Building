@@ -26,7 +26,7 @@ define([
 			//while (!window.moved){}
 			//var target = prompt('where to move?', neighbors);
 			var target = window.playerMoveTarget;
-			console.log('target', target)
+			console.log('target', target);
 			//window.moved = null;
 
 			//move

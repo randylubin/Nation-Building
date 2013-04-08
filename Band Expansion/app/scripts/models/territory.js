@@ -15,7 +15,8 @@ define([
 				color: '#9ACD32', //FF9000
 				maxColor: 'forestgreen',
 				neighbors: [],
-				carryingCapacity: 30,
+				currentEcology: 30,
+				maxEcology: 200,
 				player: 0
 		},
 
@@ -53,8 +54,8 @@ define([
 		},
 
 		growOnce: function(){
-			var newPop = ~~(logisticGrowth(this.get('population'), gameStats.get('growthRate'), this.get('carryingCapacity')));
-			this.set('population', newPop);
+			var deltaEcology = ~~(logisticGrowth(this.get('currentEcology'), gameStats.get('growthRate'), this.get('maxEcology')));
+			this.set('currentEcology', Math.max((deltaEcology+this.get('currentEcology')), 4));
 			////console.log('grew')
 			this.trigger('change:population');
 

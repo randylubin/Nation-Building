@@ -30,7 +30,7 @@ define([
 
 		increase: function(){
 
-			this.model.growOnce();
+			//this.model.growOnce();
 
 		}
 

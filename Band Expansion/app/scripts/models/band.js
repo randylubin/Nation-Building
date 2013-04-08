@@ -1,8 +1,9 @@
 define([
 	'jquery',
 	'underscore',
-	'backbone'
-], function($, _, Backbone){
+	'backbone',
+	'logisticGrowth'
+], function($, _, Backbone, logisticGrowth){
 
 	window.Band = Backbone.Model.extend({
 
@@ -24,21 +25,28 @@ define([
 
 		growOnce: function(){
 			var population = this.get('population');
-			var carryingCapacity = window.territories.get(this.get('territory')).get('carryingCapacity');
+			var currentEcology = window.territories.get(this.get('territory')).get('currentEcology');
 
-			//check carrying capacity
-			population = Math.max(0,Math.min(Math.floor(1.2*population), carryingCapacity));
+			//update pop of band
+			//var populationDelta = Math.max(0,Math.min(~~(1.2*population), currentEcology)) - population;
+			var populationDelta = ~~logisticGrowth(population,1.3,currentEcology);
+			population = Math.max(population + populationDelta + ~~(0.5+Math.random()),0);
+			var newEcology = Math.max(currentEcology - population, 2);
 			this.set('population', population);
-			window.territories.get(this.get('territory')).set('population',population);
+			//update territory
+			var terr = window.territories.get(this.get('territory'));
+			terr.set('population', population);
+			terr.set('currentEcology', newEcology);
+			terr.trigger('change:population');
 			this.trigger('change:population');
 		},
 
 		decideNextMove: function(){
-			var carryingCapacity;
+			var currentEcology;
 			var target = [];
 			var terr = window.territories.get(this.get('territory'));
 			//console.log(terr);
-			carryingCapacity = maxCap = terr.get('carryingCapacity');
+			currentEcology = maxCap = terr.get('currentEcology');
 			var neighbors = window.territories.get(this.get('territory')).get('neighbors');
 			// create list of neighbors
 			neighbors = _.map(neighbors, function(neighbor){
@@ -47,16 +55,16 @@ define([
 
 			// find elligible targets
 			_.map(neighbors, function(neighbor){
-				if (neighbor.get('carryingCapacity') > maxCap) {
+				if (neighbor.get('currentEcology') > maxCap) {
 					target = [neighbor];
-					maxCap = neighbor.get('carryingCapacity');
-				} else if (neighbor.get('carryingCapacity') == maxCap) {
+					maxCap = neighbor.get('currentEcology');
+				} else if (neighbor.get('currentEcology') == maxCap) {
 					target.push(neighbor);
 				}
 			});
 
 			// select target and add to nextMoves
-			if (carryingCapacity < maxCap){
+			if (currentEcology < maxCap){
 				target = _.shuffle(target).pop().cid;
 				//var move = {};
 				//move = {'band': this.cid, 'target': target};

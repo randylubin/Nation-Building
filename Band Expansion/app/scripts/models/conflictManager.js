@@ -13,14 +13,14 @@ define([
 
 	window.ConflictManager = Backbone.Model.extend({
         identifyConflicts: function(moves){
-            
+
             window.conflicts = [];
             _.each(moves, function(move){
-                console.log('moves', move);
+                 console.log('moves', move);
                 _.forEach(moves, function(otherMove){
                     if (move.target == otherMove.target) {
-                        if (move.band != otherMove.band) { 
-                            console.log('conflict');
+                        if (move.band != otherMove.band) {
+                            //console.log('conflict');
                             window.conflicts.push(otherMove);
                         }
                     }
@@ -31,8 +31,8 @@ define([
         },
 
         conflictConsolidator: function(){
-            var disputedTerritories = [];
-            var newConflicts = [];
+            window.disputedTerritories = [];
+            window.newConflicts = [];
             // create an array of the disputed terrs
             _.forEach(window.conflicts, function(conflict){
                 disputedTerritories.push(conflict.target);
@@ -45,18 +45,27 @@ define([
                 _.forEach(window.conflicts, function(conflict){
                     if (conflict.target == target){
                         bandsInSpace.push(conflict.band);
-                        console.log('adding conflicted band', conflict.band, 'to territory', target)
+                        console.log('adding conflicted band', conflict.band, 'to territory', target);
                     }
                 });
                 newConflict = {
                     'target': target,
-                    'bands': bands
+                    'bands': bandsInSpace
                 };
 
                 newConflicts.push(newConflict);
             });
-            console.log('new conflicts', newConflicts)
-            
+            console.log('new conflicts', newConflicts);
+            this.conflictBounce(window.newConflicts);
+        },
+
+        conflictBounce: function(){
+            _.forEach(window.newConflicts, function(conflict){
+                _.forEach(conflict.bands, function(band){
+                    var bouncer = window.bands.get(band);
+                    bouncer.set('target', bouncer.get('territory'));
+                });
+            });
         }
     });
 

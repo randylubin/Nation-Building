@@ -18,7 +18,8 @@ define([
     var Router = Backbone.Router.extend({
         routes: {
             '': 'home',
-            'blank' : 'blank'
+            'blank' : 'blank',
+            '#': 'home'
         },
 
         initialize: function() {

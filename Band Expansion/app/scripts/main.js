@@ -34,8 +34,10 @@ requirejs(['jquery', 'underscore', 'backbone', 'easel', 'routes/router', 'collec
                 _.map(bands.models, function(band){
                     window.aiBands.add(band);
                 });
-                window.playerBand = new PlayerBand();
-                window.bands.add(window.playerBand);
+                if (gameStats.get('player')){
+                    window.playerBand = new PlayerBand();
+                    window.bands.unshift(window.playerBand);
+                }
                 window.territories.setup();
             }});
             window.territories = new Territories();

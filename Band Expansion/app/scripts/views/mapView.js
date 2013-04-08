@@ -57,7 +57,7 @@ define([
 						hex.onPress = function(evt) {
 							console.log('Target selected:', hex.cid);
 							window.playerMoveTarget = hex.cid;
-							if ((gameStats.get('phase') == 0) && (gameStats.get('ready') == 0)){
+							if ((gameStats.get('phase') === 0) && (gameStats.get('ready') === 0)){
 								gameStats.set('ready',1);
 								gameLoop.nextPhase();
 							}
@@ -97,7 +97,7 @@ define([
 
 					container.addChild(text);
 
-					text = new createjs.Text(territory.get('carryingCapacity'), "12px Arial", "red");
+					text = new createjs.Text(territory.get('currentEcology'), "12px Arial", "red");
 					text.x = x + 35;
 					text.y = y + 63;
 					text.textBaseline = "alphabetic";

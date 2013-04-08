@@ -11,10 +11,11 @@ define([
     'views/mapView'
 ], function ($, _, Backbone, Territories, Bands, GameStats, Band, LibraryView, MapView){
 
+/*
     var say = function(say){
         console.log(arguments);           
     };
-
+*/
     var say = function(message){
         window.message.say(message);
     };
@@ -28,51 +29,68 @@ define([
         },
 
         phases: [
+            /*
+            //Reset defaults
+            function(){
+                window.nextMoves = [];
+                gameLoop.nextPhase();
+            },
+*/
             //player selects move
             function(){
-                say('Choose target');
-                gameStats.set('ready', 0);
+                window.nextMoves = [];
+                if (gameStats.get('player')){
+                    say('Choose target');
+                    gameStats.set('ready', 0);
+                } else {
+                    gameLoop.nextPhase();
+                }
             },
 
             // assess legality of moves
             function(){
-                say('Assessing move legality');
-                var target = window.playerMoveTarget;
-                var legalTargets = territories.get(window.playerBand.get('territory')).get('neighbors');
-                legalTargets.push(window.playerBand.get('territory'));
-                //say('legal', legalTargets)
-                if (_.contains(legalTargets, target)){
-                    //say('legal move');
-                    gameStats.set('ready', 1);
-                    gameLoop.nextPhase();
+                if (gameStats.get('player')){
+                    say('Assessing move legality');
+                    var target = window.playerMoveTarget;
+                    var legalTargets = territories.get(window.playerBand.get('territory')).get('neighbors');
+                    legalTargets.push(window.playerBand.get('territory'));
+                    //say('legal', legalTargets)
+                    if (_.contains(legalTargets, target)){
+                        //say('legal move');
+                        gameStats.set('ready', 1);
+                        gameLoop.nextPhase();
+                    } else {
+                        say('Too Far Away; Choose Again');
+                        gameStats.set('ready',0);
+                        window.gameStats.changePhase(window.gameStats.get('phase')-1);
+                    }
                 } else {
-                    say('Too Far Away; Choose Again');
-                    gameStats.set('ready',0);
-                    window.gameStats.changePhase(window.gameStats.get('phase')-1);
+                    gameLoop.nextPhase();
                 }
             },
 
             // band moves submitted
             function(){
-                //player move
-                window.playerBand.decideNextMove();
-                //window.playerMoveTarget = null;                
-
-                //ai move
+                if (gameStats.get('player')){
+                    //player move
+                    window.playerBand.decideNextMove();
+                    //window.playerMoveTarget = null;                
+                }
+                //ai submit move
                 say('AI choosing targets');
                 window.aiBands.decideNextMove();
-                console.log('next moves',nextMoves);
+                //console.log('next moves',nextMoves);
                 gameLoop.nextPhase();
             },
             //Band Conflict Management
             function(){
                 say('Managing Conflicts');
-                console.log('next moves',nextMoves);
+                //console.log('next moves',nextMoves);
                 conflictManager.identifyConflicts(nextMoves);
                 console.log(window.conflicts);
                 gameLoop.nextPhase();
             },
-            //Conflict Resolution
+            //Move & Conflict Resolution
             function(){
                 say('Resolving Conflicts and Moves');
                 window.bands.move();
@@ -91,7 +109,6 @@ define([
                 gameStats.increaseTurnCounter();
                 gameLoop.nextPhase();
             }
-
         ],
 
 

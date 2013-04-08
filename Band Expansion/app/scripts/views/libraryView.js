@@ -17,6 +17,7 @@ define([
 			_.bindAll(this, 'render', 'advancePhase');
 			this.template = _.template($('#library-template').html());
 			this.collection.bind('reset', this.render);
+			this.collection.bind('add', this.render);
 			//this.collection.bind('change', this.render);
 
 		},
@@ -24,6 +25,7 @@ define([
 		render: function(){
 			var $stats,
 				$bands,
+				$playerBand,
 				collection = this.collection;
 
 			$(this.el).html(this.template({}));
@@ -41,6 +43,7 @@ define([
 					collection: collection
 				});
 				$bands.append(view.render().el);
+				//console.log('band added:',band);
 			});
 
 			return this;
