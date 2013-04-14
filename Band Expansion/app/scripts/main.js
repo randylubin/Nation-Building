@@ -3,7 +3,7 @@ require.config({
     'jquery': 'vendor/jquery/jquery',
     'underscore': 'vendor/underscore-amd/underscore',
     'backbone': 'vendor/backbone-amd/backbone',
-    'easel': 'vendor/EaselJS/easeljs'
+    'easel': 'vendor/EaselJS/lib/easeljs-0.6.0.min'
   }
 });
 
