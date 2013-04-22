@@ -8,8 +8,9 @@ define([
     //'models/territory',
     'models/band',
     'views/libraryView',
-    'views/mapView'
-], function ($, _, Backbone, Territories, Bands, GameStats, Band, LibraryView, MapView){
+    'views/mapView',
+    'models/decisionMenu'
+], function ($, _, Backbone, Territories, Bands, GameStats, Band, LibraryView, MapView, DecisionMenu){
 
 /*
     var say = function(say){
@@ -108,7 +109,15 @@ define([
                 window.territories.updateCarryingCapacity();
                 gameStats.increaseTurnCounter();
                 gameLoop.nextPhase();
+            },
+            // Random Decision
+            function(){
+                if (true){
+                    say('decision time!');
+                    window.decisionMenu.showDecisionMenu();
+                }
             }
+
         ],
 
 

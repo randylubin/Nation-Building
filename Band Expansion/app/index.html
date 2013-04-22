@@ -25,6 +25,21 @@
       <h1 id="message"> <%= message %></h1>
     </script>
 
+    <script type="text/template" id="decisionMenu-template">
+      <div id="decisionMenu" <% if (!visible) { %>
+        style="visibility:hidden;"
+      <% } %>
+      > 
+        <h3 id="prompt"> <%= prompt %> </h3>
+        <ol id="choices">
+          <% _.each(choices, function(choice){ %>
+              <li class="choice" data="test"><%= choice.message %></li>
+          <% }) %>
+        </ol>
+      </div>
+
+    </script>
+
     <script type="text/template" id="library-template">
       <h1>Current Bands</h1>
       <ul class='stats'></ul>
@@ -50,6 +65,7 @@
     <script type="text/template" id="map-template">
       
     </script>
+
 
   </head>
 

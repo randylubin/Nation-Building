@@ -22,9 +22,13 @@ define([
 			return this;
 		},
 
-		keyup: function(){
-			gameStats.set('ready',1);
-			gameLoop.nextPhase();
+		keyup: function(e){
+			if (e.keyCode == 32){
+				gameStats.set('ready',1);
+				gameLoop.nextPhase();
+			} else {
+				console.log('key pressed:', e.keyCode);
+			}
 		}
 
 	});

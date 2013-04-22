@@ -12,8 +12,9 @@ define([
     'views/libraryView',
     'views/mapView',
     'models/gameLoop',
-    'views/playerMessageView'
-], function ($, _, Backbone, Easel, Territories, Bands, GameStats, Territory, Band, PlayerBand, LibraryView, MapView, GameLoop, PlayerMessageView)
+    'views/playerMessageView',
+    'views/DecisionMenuView'
+], function ($, _, Backbone, Easel, Territories, Bands, GameStats, Territory, Band, PlayerBand, LibraryView, MapView, GameLoop, PlayerMessageView, DecisionMenuView)
 {
     var Router = Backbone.Router.extend({
         routes: {
@@ -32,12 +33,16 @@ define([
             this.playerMessageView = new PlayerMessageView({
                 model: window.message
             });
+            this.decisionMenuView = new DecisionMenuView({
+                model: window.decisionMenu
+            });
         },
 
         home: function(){
             var $container = $('#container');
             $container.empty();
             $container.append(this.playerMessageView.render().el);
+            $container.append(this.decisionMenuView.render().el);
             $container.append(this.libraryView.render().el);
             this.mapView.render();
         },
