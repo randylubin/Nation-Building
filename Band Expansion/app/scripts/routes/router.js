@@ -13,7 +13,7 @@ define([
     'views/mapView',
     'models/gameLoop',
     'views/playerMessageView',
-    'views/DecisionMenuView'
+    'views/decisionMenuView'
 ], function ($, _, Backbone, Easel, Territories, Bands, GameStats, Territory, Band, PlayerBand, LibraryView, MapView, GameLoop, PlayerMessageView, DecisionMenuView)
 {
     var Router = Backbone.Router.extend({
