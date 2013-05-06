@@ -6,6 +6,9 @@ define([
 	'models/band'
 ], function($, _, Backbone, territory, Band){
 
+	var whisper = function(say){
+        console.log(arguments);           
+    };
 
 	window.Territories = Backbone.Collection.extend({
 		model: Territory,
@@ -77,7 +80,7 @@ define([
                     return thing.cid;
                 });
                 territory.set('neighbors', neighborArray);
-            });	
+            });
 
 		},
 
@@ -191,7 +194,7 @@ define([
 			// calc growth
 			_.map(popped, function(territory){
 				var growth = territory.calculateGrowth();
-				//console.log(growth)
+				//whisper(growth)
 				growthTable.push({
 					'cid': territory.cid,
 					'growth': growth });
@@ -211,5 +214,7 @@ define([
 			});
 		}
 	});
+
+	return window.Territories;
 
 });

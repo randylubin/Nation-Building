@@ -4,6 +4,10 @@ define([
 	'backbone'
 ], function($, _, Backbone){
 
+	var whisper = function(say){
+        console.log(arguments);           
+    };
+
 	window.BandView = Backbone.View.extend({
 		tagName:  'li',
 		className: 'band',

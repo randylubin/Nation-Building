@@ -1,0 +1,1 @@
+define(["jquery","underscore","backbone"],function(e,t,n){var r=function(e,t,n){return e=e*t*(1-e/n),e};return r});

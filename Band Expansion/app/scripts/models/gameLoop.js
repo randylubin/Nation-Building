@@ -13,11 +13,11 @@ define([
     'models/decisionLibrary'
 ], function ($, _, Backbone, Territories, Bands, GameStats, Band, LibraryView, MapView, DecisionMenu, DecisionLibrary){
 
-/*
-    var say = function(say){
+
+    var whisper = function(say){
         console.log(arguments);           
     };
-*/
+
     var say = function(message){
         window.message.say(message);
     };
@@ -83,13 +83,13 @@ define([
                 //ai submit move
                 say('AI choosing targets');
                 window.aiBands.decideNextMove();
-                //console.log('next moves',nextMoves);
+                //whisper('next moves',nextMoves);
                 gameLoop.nextPhase();
             },
             //Band Conflict Management
             function(){
                 say('Managing Conflicts');
-                //console.log('next moves',nextMoves);
+                //whisper('next moves',nextMoves);
                 conflictManager.identifyConflicts(nextMoves);
                 console.log(window.conflicts);
                 gameLoop.nextPhase();

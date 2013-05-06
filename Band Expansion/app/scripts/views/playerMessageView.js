@@ -4,6 +4,10 @@ define([
 	'backbone'
 ], function($, _, Backbone){
 
+	var whisper = function(say){
+        console.log(arguments);           
+    };
+
 	window.PlayerMessageView = Backbone.View.extend({
 		tagName: 'span',
 
@@ -38,7 +42,7 @@ define([
 			// numbers to select options
 			// 
 			} else if((keyCode >= 48 && keyCode <= 57) && gameStats.get('hitNumberToDecide') == 1) {
-				console.log('you decided', (keyCode - 48));
+				whisper('you decided', (keyCode - 48));
 				decisionMenu.choose(keyCode - 49);
 				gameStats.set('hitNumberToDecide', 0);
 			//
@@ -56,9 +60,9 @@ define([
 				}
 
 			} else {
-				console.log('not a valid key press');
+				whisper('not a valid key press');
 			}
-			console.log('key pressed:', keyCode);
+			whisper('key pressed:', keyCode);
 		}
 
 	});

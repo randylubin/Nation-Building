@@ -5,6 +5,10 @@ define([
 	'easel'
 ], function($, _, Backbone, Easel){
 
+	var whisper = function(say){
+        console.log(arguments);           
+    };
+
 	window.DecisionMenuView = Backbone.View.extend({
 		tagName: 'span',
 
@@ -13,7 +17,7 @@ define([
 		},
 
 		initialize: function() {
-			//console.log('maptime')
+			//whisper('maptime')
 			_.bindAll(this, 'render', 'choose');
 			this.model.bind('change', this.render);
 			this.template = _.template($('#decisionMenu-template').html());
@@ -30,7 +34,7 @@ define([
 
 		choose: function(e){
 			var choiceIndex = $(".choice").index(e.currentTarget);
-			console.log('You chose:', choiceIndex);
+			whisper('You chose:', choiceIndex);
 			window.decisionMenu.choose(choiceIndex);
 
 

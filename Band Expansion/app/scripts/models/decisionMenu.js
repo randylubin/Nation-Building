@@ -5,6 +5,10 @@ define([
 	'models/band'
 ], function($, _, Backbone, Band){
 
+	var whisper = function(say){
+        console.log(arguments);           
+    };
+
 	window.DecisionMenu = Backbone.Model.extend({
 		defaults: {
 			prompt: 'No choice for now',
@@ -13,20 +17,20 @@ define([
 				{
 					"message": "next turn",
 					callback: function(){
-						console.log('yup');
+						whisper('yup');
 					}
 				},
 				{
 					"message": "keep going",
 					callback: function(){
-						console.log('yup');
+						whisper('yup');
 					}
 				}
 			]
 		},
 
 		initialize: function(){
-			console.log('Decision Menu loaded');
+			whisper('Decision Menu loaded');
 			_.bindAll(this, 'newOptions', 'hideDecisionMenu', 'showDecisionMenu', 'choose');
 		},
 
@@ -51,7 +55,7 @@ define([
 				this.hideDecisionMenu();
 				this.nextPhase();
 			} else {
-				console.log('not a valid choice');
+				whisper('not a valid choice');
 			}
 		},
 
