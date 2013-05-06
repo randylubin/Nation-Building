@@ -12,7 +12,7 @@ define([
 		url: '/bands',
 
 		initialize: function(){
-			_.bindAll(this, 'increasePop', 'decideNextMove','move');
+			_.bindAll(this, 'increasePop', 'decideNextMove','move', 'checkWinConditions');
 		},
 
 		increasePop: function(){
@@ -33,6 +33,11 @@ define([
 		move: function(){
 			_.map(this.models, function(band){
 				band.move();
+			});
+		},
+		checkWinConditions: function(){
+			_.map(this.models, function(band){
+				band.checkWinConditions();
 			});
 		}
 

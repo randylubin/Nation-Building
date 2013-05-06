@@ -9,8 +9,9 @@ define([
     'models/band',
     'views/libraryView',
     'views/mapView',
-    'models/decisionMenu'
-], function ($, _, Backbone, Territories, Bands, GameStats, Band, LibraryView, MapView, DecisionMenu){
+    'models/decisionMenu',
+    'models/decisionLibrary'
+], function ($, _, Backbone, Territories, Bands, GameStats, Band, LibraryView, MapView, DecisionMenu, DecisionLibrary){
 
 /*
     var say = function(say){
@@ -42,6 +43,7 @@ define([
                 window.nextMoves = [];
                 if (gameStats.get('player')){
                     say('Choose target');
+                    gameStats.set('selectToMove', 1);
                     gameStats.set('ready', 0);
                 } else {
                     gameLoop.nextPhase();
@@ -62,6 +64,7 @@ define([
                         gameLoop.nextPhase();
                     } else {
                         say('Too Far Away; Choose Again');
+                        gameStats.set('hitSpaceToContinue', 1);
                         gameStats.set('ready',0);
                         window.gameStats.changePhase(window.gameStats.get('phase')-1);
                     }
@@ -112,10 +115,21 @@ define([
             },
             // Random Decision
             function(){
-                if (true){
+                if (gameStats.get('decisions') && (gameStats.get('turn') % 3 === 0)){
                     say('decision time!');
+                    if (!window.decisionLibrary.bandDecisions.length){
+                        window.decisionLibrary = new DecisionLibrary();
+                    }
+                    gameStats.set('hitNumberToDecide', 1);
+                    window.decisionMenu.newOptions(window.decisionLibrary.bandDecisions.pop());
                     window.decisionMenu.showDecisionMenu();
+                } else {
+                    gameLoop.nextPhase();
                 }
+            },
+            // check win conditions
+            function(){
+                window.bands.checkWinConditions();
             }
 
         ],
@@ -128,7 +142,7 @@ define([
                     currentPhase = currentPhase % gameLoop.phases.length;
                     window.gameStats.changePhase(currentPhase);
                     gameLoop.phases[currentPhase]();
-                }, 300);
+                }, 200);
             } else {
                 gameLoop.phases[gameStats.get('phase')]();
             }

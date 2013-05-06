@@ -30,9 +30,8 @@ define([
 
 		choose: function(e){
 			var choiceIndex = $(".choice").index(e.currentTarget);
-			var decisionChoice = window.decisionMenu.get('choices')[choiceIndex];
-			console.log('You chose:', decisionChoice);
-			window.decisionMenu.choose(decisionChoice.callback);
+			console.log('You chose:', choiceIndex);
+			window.decisionMenu.choose(choiceIndex);
 
 
 		}

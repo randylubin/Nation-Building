@@ -7,8 +7,8 @@ require.config({
   }
 });
 
-requirejs(['jquery', 'underscore', 'backbone', 'easel', 'routes/router', 'collections/bands', 'collections/aiBands', 'models/band', 'models/playerBand', 'models/conflictManager', 'models/eventStream', 'models/playerMessage', 'models/decisionMenu'],
-    function ($, _, Backbone, Easel, Router, Bands, AIBands, Band, PlayerBand, ConflictManager, EventStream, PlayerMessage, DecisionMenu)
+requirejs(['jquery', 'underscore', 'backbone', 'easel', 'routes/router', 'collections/bands', 'collections/aiBands', 'models/band', 'models/playerBand', 'models/conflictManager', 'models/eventStream', 'models/playerMessage', 'models/decisionMenu', 'models/decisionLibrary'],
+    function ($, _, Backbone, Easel, Router, Bands, AIBands, Band, PlayerBand, ConflictManager, EventStream, PlayerMessage, DecisionMenu, DecisionLibrary)
     {
 
 
@@ -25,6 +25,7 @@ requirejs(['jquery', 'underscore', 'backbone', 'easel', 'routes/router', 'collec
             window.stage = new createjs.Stage('canvasId');
             window.message = new PlayerMessage();
             window.decisionMenu = new DecisionMenu();
+            window.decisionLibrary = new DecisionLibrary();
             window.gameStats = new GameStats();
             window.eventStream = new EventStream();
             window.conflictManager = new ConflictManager();

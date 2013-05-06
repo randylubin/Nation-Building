@@ -15,7 +15,8 @@ define([
 			"disposition": 5,
 			"resources": 0,
 			"relationships": [],
-			"player": 1
+			"player": 1,
+			"winCriteriaMet": 0
 		},
 
 		decideNextMove: function(){
@@ -31,6 +32,14 @@ define([
 
 			//move
 			this.setMove(this.cid, target, this.get('territory'));
+		},
+		checkWinConditions: function(){
+			if (this.get('winCriteriaMet')){
+				window.message.say('You Won');
+				console.log('you win!')
+			} else {
+				gameLoop.nextPhase();
+			}
 		}
 	});
 

@@ -16,8 +16,10 @@ define([
 			// build initial territory array
 			var rows = gameStats.get('rows');
 			var columns = gameStats.get('columns');
+			this.cidArray = [];
 
 			for (var i = 0; i < columns; i++) {
+				var cidRow = [];
 				for (var j = 0; j < rows; j++){
 					var territory = new Territory({
 						x: i,
@@ -30,7 +32,9 @@ define([
 							territory.set('maxColor', 'aqua');
 						}
 					this.add(territory);
+					cidRow.push(territory.cid);
 				}
+				this.cidArray.push(cidRow);
 			}
 
 			// add neighbor information to territories
@@ -73,10 +77,86 @@ define([
                     return thing.cid;
                 });
                 territory.set('neighbors', neighborArray);
-            });
+            });	
+
 		},
 
 		setup: function(){
+			//create directional mapping
+			_.forEach(this.models, function(territory){
+				var directionalNeighbors = [];
+				var thisX = territory.get('x');
+				var thisY = territory.get('y');
+				var rows = gameStats.get('rows');
+				var columns = gameStats.get('columns');
+				var oddLine = thisY % 2;
+				var neighbor = null;
+				var candidate = null;
+
+				//northwest
+				neighbor = null;
+				if (thisY !== 0 && !(thisX === 0 && !oddLine)){
+					if (oddLine){
+						neighbor = territories.cidArray[thisX][thisY - 1];
+					} else {
+						neighbor = territories.cidArray[thisX - 1][thisY - 1];
+					}
+				}
+				directionalNeighbors.push(neighbor);
+
+				//northeast
+				neighbor = null;
+				if (thisY !== 0 && !(thisX == columns - 1 && oddLine)){
+					if (oddLine){
+						neighbor = territories.cidArray[thisX + 1][thisY - 1];
+					} else {
+						neighbor = territories.cidArray[thisX][thisY - 1];
+					}
+				}
+				directionalNeighbors.push(neighbor);
+
+				//east
+				neighbor = null;
+				if (thisX != columns -1){
+					neighbor = territories.cidArray[thisX + 1][thisY];
+				}
+				directionalNeighbors.push(neighbor);
+
+				//southeast
+				neighbor = null;
+				if (thisY != rows - 1 && !(thisX == columns - 1 && oddLine)){
+					if (oddLine){
+						neighbor = territories.cidArray[thisX + 1][thisY + 1];
+					} else {
+						neighbor = territories.cidArray[thisX][thisY + 1];
+					}
+				}
+				directionalNeighbors.push(neighbor);
+
+				//southwest
+				neighbor = null;
+				if (thisY != rows - 1 && !(thisX === 0 && !oddLine)){
+					if (oddLine){
+						neighbor = territories.cidArray[thisX][thisY + 1];
+					} else {
+						neighbor = territories.cidArray[thisX - 1][thisY + 1];
+					}
+				}
+				directionalNeighbors.push(neighbor);
+
+				//west
+				neighbor = null;
+				if (thisX !== 0){
+					neighbor = territories.cidArray[thisX -1][thisY];
+				}
+				directionalNeighbors.push(neighbor);
+
+				//stay put
+				directionalNeighbors.push(territory.cid);
+
+				territory.set('directionalNeighbors', directionalNeighbors);
+			});
+
 			//place initial pops on the map
 
 			//get land tiles

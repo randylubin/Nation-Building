@@ -12,10 +12,12 @@ define([
 
 		initialize: function(){
 			console.log('Event Stream Initialized');
+			_.bindAll(this, 'broadcast');
 		},
 
+		//BROKEN!
 		broadcast: function(message){
-			messages.push(message);
+			this.messages.push(message);
 			console.log(message);
 		}
 	});

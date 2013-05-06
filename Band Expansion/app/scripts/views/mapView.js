@@ -59,6 +59,7 @@ define([
 							window.playerMoveTarget = hex.cid;
 							if ((gameStats.get('phase') === 0) && (gameStats.get('ready') === 0)){
 								gameStats.set('ready',1);
+								gameStats.set('selectToMove', 0);
 								gameLoop.nextPhase();
 							}
 

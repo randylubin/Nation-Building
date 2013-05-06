@@ -8,11 +8,21 @@ define([
 	window.Band = Backbone.Model.extend({
 
 		defaults: {
-			"player": 0
+			"player": 0,
+			"discoveries": {
+				"spears": 0,
+				"archery": 0,
+				"slings": 0,
+				"pottery": 0,
+				"dogs": 0,
+				"livestock": 0,
+				"farming": 0,
+				"irrigating": 0
+			}
 		},
 
 		initialize: function(){
-			_.bindAll(this, 'growOnce', 'changePopulation', 'decideNextMove', 'move');
+			_.bindAll(this, 'growOnce', 'changePopulation', 'decideNextMove', 'move', 'checkWinConditions');
 		},
 
 		changePopulation: function(people){
@@ -95,6 +105,10 @@ define([
 				target.set('player', 1);
 			}
 			target.changePopulation(this.get('population'));
+		},
+
+		checkWinConditions: function(){
+
 		}
 
 	});

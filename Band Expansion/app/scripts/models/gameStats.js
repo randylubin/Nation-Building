@@ -11,6 +11,7 @@ define([
 			phase: 0,
 			ready: 0,
 			player: 1,
+			decisions: 1,
 			// Game Map
 			rows: 6,
 			columns: 8,
@@ -19,7 +20,6 @@ define([
 			// Population
 			popPerExp: 25,
 			minPopToExp: 150,
-			
 			initialPop: 20,
 			//ecology
 			growthRate: 1.3,
@@ -29,7 +29,13 @@ define([
 			minColor: '#2f4f4f',
 			maxColor: '#2f4f4f',
 			neutralColor: '#9ACD32', //FF9000
-			playerColor: '#DAA520'
+			playerColor: '#DAA520',
+			//eventControls
+			hitSpaceToContinue: 0,
+			hitNumberToDecide: 0,
+			selectToMove: 1,
+			//win conditions
+			playerHasWon: 0
 		},
 
 		initialize:function(turn){

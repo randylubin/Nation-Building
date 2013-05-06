@@ -23,12 +23,42 @@ define([
 		},
 
 		keyup: function(e){
-			if (e.keyCode == 32){
+			// movement: q,w,d,x,z,a,s
+			var moveKeyArray = [81,87,68,88,90,65,83];
+			var keyCode = e.keyCode;
+
+			// 
+			// space to continue
+			// 
+			if (keyCode == 32 && gameStats.get('hitSpaceToContinue') == 1){ //space
+				gameStats.set('hitSpaceToContinue', 0);
 				gameStats.set('ready',1);
 				gameLoop.nextPhase();
+			//
+			// numbers to select options
+			// 
+			} else if((keyCode >= 48 && keyCode <= 57) && gameStats.get('hitNumberToDecide') == 1) {
+				console.log('you decided', (keyCode - 48));
+				decisionMenu.choose(keyCode - 49);
+				gameStats.set('hitNumberToDecide', 0);
+			//
+			// movement: w,e,d,x,z,a,s
+			// 
+			} else if (_.contains(moveKeyArray, keyCode) && gameStats.get('selectToMove') == 1) {
+				var moveKeyIndex = _.indexOf(moveKeyArray, keyCode);
+				var terr = territories.get(playerBand.get('territory'));
+				window.playerMoveTarget = terr.get('directionalNeighbors')[moveKeyIndex];
+
+				if ((gameStats.get('phase') === 0) && (gameStats.get('ready') === 0)){
+					gameStats.set('ready',1);
+					gameStats.set('hitSpaceToContinue', 0);
+					gameLoop.nextPhase();
+				}
+
 			} else {
-				console.log('key pressed:', e.keyCode);
+				console.log('not a valid key press');
 			}
+			console.log('key pressed:', keyCode);
 		}
 
 	});

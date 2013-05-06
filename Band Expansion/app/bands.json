@@ -1,5 +1,5 @@
 [{
-    "name": "Fjordish",
+    "name": "Fjord Clan",
     "population": 20,
     "growthRate": 2,
     "military": 0,
@@ -9,7 +9,7 @@
     "relationships": []
 },
 {
-    "name": "Dinarian",
+    "name": "Dinar Dynasty",
     "population": 20,
     "growthRate": 2,
     "military": 0,

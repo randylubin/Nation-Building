@@ -8,7 +8,7 @@ define([
 	window.DecisionMenu = Backbone.Model.extend({
 		defaults: {
 			prompt: 'No choice for now',
-			visible: 1,
+			visible: 0,
 			choices: [
 				{
 					"message": "next turn",
@@ -31,7 +31,8 @@ define([
 		},
 
 		newOptions: function(optionsArray){
-			this.set('message', message);
+			this.set('prompt', optionsArray.prompt);
+			this.set('choices', optionsArray.choices);
 			this.trigger('change:message');
 		},
 
@@ -43,10 +44,15 @@ define([
 			this.set('visible', 1);
 		},
 
-		choose: function(callback){
-			callback();
-			this.hideDecisionMenu();
-			this.nextPhase();
+		choose: function(choiceNumber){
+			if (choiceNumber < this.get('choices').length){
+				choice = this.get('choices')[choiceNumber];
+				choice.callback();
+				this.hideDecisionMenu();
+				this.nextPhase();
+			} else {
+				console.log('not a valid choice');
+			}
 		},
 
 		nextPhase: function(){
