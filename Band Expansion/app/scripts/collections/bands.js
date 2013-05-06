@@ -9,10 +9,32 @@ define([
 
 	window.Bands = Backbone.Collection.extend({
 		model: Band,
-		url: '/bands',
+		//url: '/bands',
 
 		initialize: function(){
 			_.bindAll(this, 'increasePop', 'decideNextMove','move', 'checkWinConditions');
+/*			this.add([
+				{
+					"name": "Fjord Clan",
+				    "population": 20,
+				    "growthRate": 2,
+				    "military": 0,
+				    "technology": 0,
+				    "disposition": 5,
+				    "resources": 0,
+				    "relationships": []
+				},
+			    {
+					"name": "Dinar Dynasty",
+				    "population": 20,
+				    "growthRate": 2,
+				    "military": 0,
+				    "technology": 0,
+				    "disposition": 5,
+				    "resources": 0,
+				    "relationships": []
+				}
+			]);*/
 		},
 
 		increasePop: function(){

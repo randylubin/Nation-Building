@@ -7,7 +7,7 @@ define([
 ], function($, _, Backbone, territory, Band){
 
 	var whisper = function(say){
-        console.log(arguments);           
+        console.log(arguments);
     };
 
 	window.Territories = Backbone.Collection.extend({

@@ -6,7 +6,7 @@ define([
 ], function($, _, Backbone, Band){
 
 	var whisper = function(say){
-        console.log(arguments);           
+        console.log(arguments);
     };
 
 	window.DecisionMenu = Backbone.Model.extend({

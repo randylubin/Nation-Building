@@ -29,22 +29,40 @@ requirejs(['jquery', 'underscore', 'backbone', 'easel', 'routes/router', 'collec
             window.gameStats = new GameStats();
             window.eventStream = new EventStream();
             window.conflictManager = new ConflictManager();
-            window.bands = new Bands();
-            window.aiBands = new AIBands();
-            window.bands.fetch({success: function(){
-                console.log('check bands', bands);
-                _.map(bands.models, function(band){
-                    window.aiBands.add(band);
-                });
-                if (gameStats.get('player')){
-                    window.playerBand = new PlayerBand();
-                    window.bands.unshift(window.playerBand);
-                }
-                window.territories.setup();
-            }});
+            window.bands = new Bands([{
+                    "name": "Fjord Clan",
+                    "population": 20,
+                    "growthRate": 2,
+                    "military": 0,
+                    "technology": 0,
+                    "disposition": 5,
+                    "resources": 0,
+                    "relationships": []
+                },
+                {
+                    "name": "Dinar Dynasty",
+                    "population": 20,
+                    "growthRate": 2,
+                    "military": 0,
+                    "technology": 0,
+                    "disposition": 5,
+                    "resources": 0,
+                    "relationships": []
+                }]);
             window.territories = new Territories();
+            window.aiBands = new AIBands();
             window.nextMoves = [];
             window.gameLoop = new GameLoop();
+//            window.bands.fetch({success: function(){
+            _.map(bands.models, function(band){
+                window.aiBands.add(band);
+            });
+            if (gameStats.get('player')){
+                window.playerBand = new PlayerBand();
+                window.bands.unshift(window.playerBand);
+            }
+            //window.territories.setup();
+//            }});
 
             window.rainbow = new Rainbow();
             rainbow.setSpectrum(gameStats.get('minColor'),gameStats.get('maxColor'));

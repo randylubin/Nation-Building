@@ -15,7 +15,7 @@ define([
 
 
     var whisper = function(say){
-        console.log(arguments);           
+        console.log(arguments);
     };
 
     var say = function(message){
@@ -142,7 +142,7 @@ define([
                     currentPhase = currentPhase % gameLoop.phases.length;
                     window.gameStats.changePhase(currentPhase);
                     gameLoop.phases[currentPhase]();
-                }, 200);
+                }, 100);
             } else {
                 gameLoop.phases[gameStats.get('phase')]();
             }

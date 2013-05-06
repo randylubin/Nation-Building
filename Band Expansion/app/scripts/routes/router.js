@@ -36,6 +36,7 @@ define([
             this.decisionMenuView = new DecisionMenuView({
                 model: window.decisionMenu
             });
+            window.territories.setup();
         },
 
         home: function(){
